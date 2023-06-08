@@ -81,47 +81,47 @@ def geocode_parse(df, process_cnt):
 
 if __name__ == '__main__':
 
-engine = create_engine(f'mariadb+pymysql://{config.user}:{config.pwd}@{config.host}:3306/{config.db}', echo=False)
-conn = engine.connect()
-while True:
-    try:
-        sql = text('''
-                select  distinct management_number, 
-                        sido_name,
-                        apartment_flag, 
-                        delivery_name, 
-                        document_build_name, 
-                        sigungu_build_name, 
-                        full_load_address, 
-                        beopdong_code as admCd, 
-                        load_code as rnMgtSn, 
-                        underground_flag as udrtYn, 
-                        build_1st_number as buldMnnm, 
-                        build_2nd_number as buldSlno 
-                from zz_all
-                where management_number not in (select management_number from zz_coordinate) 
-                
-                limit 10000
-                ''')
+    engine = create_engine(f'mariadb+pymysql://{config.user}:{config.pwd}@{config.host}:3306/{config.db}', echo=False)
+    conn = engine.connect()
+    while True:
+        try:
+            sql = text('''
+                    select  distinct management_number, 
+                            sido_name,
+                            apartment_flag, 
+                            delivery_name, 
+                            document_build_name, 
+                            sigungu_build_name, 
+                            full_load_address, 
+                            beopdong_code as admCd, 
+                            load_code as rnMgtSn, 
+                            underground_flag as udrtYn, 
+                            build_1st_number as buldMnnm, 
+                            build_2nd_number as buldSlno 
+                    from zz_all
+                    where management_number not in (select management_number from zz_coordinate) 
+                    
+                    limit 10000
+                    ''')
 
-        df = pd.read_sql_query(sql, conn)
-        coordinate = []  # 좌표
+            df = pd.read_sql_query(sql, conn)
+            coordinate = []  # 좌표
 
-        for process_cnt in tqdm(range(0, len(df['full_load_address'])), total=len(df['full_load_address']), desc='좌표획득 진행율', ncols=100, ascii=' =', leave=True):
-            coordinate.append(geocode_parse(df, process_cnt))
+            for process_cnt in tqdm(range(0, len(df['full_load_address'])), total=len(df['full_load_address']), desc='좌표획득 진행율', ncols=100, ascii=' =', leave=True):
+                coordinate.append(geocode_parse(df, process_cnt))
 
-        coordinate_df = pd.DataFrame(coordinate)
+            coordinate_df = pd.DataFrame(coordinate)
 
-        # Bulk Data DB 업로드 속도 개선 기능
-        @event.listens_for(engine, "before_cursor_execute")
-        def receive_before_cursor_execute(
-                conn, cursor, statement, params, context, executemany
-        ):
-            if executemany:
-                cursor.fast_executemany = True
+            # Bulk Data DB 업로드 속도 개선 기능
+            @event.listens_for(engine, "before_cursor_execute")
+            def receive_before_cursor_execute(
+                    conn, cursor, statement, params, context, executemany
+            ):
+                if executemany:
+                    cursor.fast_executemany = True
 
-        coordinate_df.to_sql('zz_coordinate', engine, index=False, if_exists="append", chunksize=100000)
+            coordinate_df.to_sql('zz_coordinate', engine, index=False, if_exists="append", chunksize=100000)
 
-    except Exception as e:
-        print('좌표획득 프로세스 오류: ', e)
-        pass
+        except Exception as e:
+            print('좌표획득 프로세스 오류: ', e)
+            pass
