@@ -14,7 +14,10 @@
 ## Use Library
 * pandas
 * sqlalchemy
+* PyMySQL
+* mariadb
 * requests
+* lxml
 * beautifulsoup4
 * pyproj
 * openpyxl
