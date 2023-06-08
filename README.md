@@ -5,7 +5,7 @@
 * 건축물소유자정보 제공서비스(NIA)
 * 건축물대장정보 서비스(NIA)
 * 건축인허가 정보 서비스(NIA)
-* 주소DB 제공[Bulk Data](행안부)
+* 주소DB 제공 Bulk Data(행안부)
 * Geocoder API 2.0 주소-좌표 변환(Vworld)
 
 ## Built With:
