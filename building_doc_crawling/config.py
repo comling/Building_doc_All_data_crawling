@@ -19,8 +19,14 @@ juso_key3 = 'U01TX0FVVEgyMDIzMDMwMzE2Mzc1ODExMzU2MzI='
 geocode_key = 'U01TX0FVVEgyMDIzMDUzMDE4NDM1MjExMzgxMTU='
 geocode_key2 = 'U01TX0FVVEgyMDIzMDUzMDE4NDM0OTExMzgxMTQ='
 
-### sundakorea DB 정보
-host = 'sundakorea.synology.me'
+### sundakorea 파일서버 DB 정보
+nas_host = 'sundakorea.synology.me'
+nas_user = 'sundakorea'
+nas_pwd = '#Jhyun08027'
+nas_db = 'Address'
+
+### sundakorea Server DB 정보
+host = '172.16.72.143'
 user = 'sundakorea'
 pwd = '#Jhyun08027'
 db = 'Address'

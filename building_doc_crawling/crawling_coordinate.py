@@ -16,6 +16,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
+
 def geocode_parse(df, process_cnt):
     management_number = df['management_number'][process_cnt]
     sido_name = df['sido_name'][process_cnt]
