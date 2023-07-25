@@ -17,7 +17,7 @@ from pyproj import Proj, transform  # 좌표계 변환 라이브러리
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-delay = 0.05
+delay = 0.5
 
 opertaion_list = ['getBrBasisOulnInfo', # 건축물대장 기본개요 조회
                 'getBrRecapTitleInfo', # 건축물대장 총괄표제부 조회
