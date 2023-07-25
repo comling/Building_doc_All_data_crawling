@@ -1,6 +1,7 @@
 import os
+import sys
 
-while True:
+def getXYcoordinate():
     getXYcoordinate_process_read = os.popen("ps -ef | grep getXYcoordinate.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getXYcoordinate.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -15,6 +16,7 @@ while True:
     else:
         print("Process exists. Location is", getXYcoordinate_text_location)
 
+def getArchitecturePossessionInfo():
     getArchitecturePossessionInfo_process_read = os.popen("ps -ef | grep getArchitecturePossessionInfo.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getArchitecturePossessionInfo.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -29,6 +31,7 @@ while True:
     else:
         print("Process exists. Location is", getArchitecturePossessionInfo_text_location)
 
+def getBrBasisOulnInfo():
     getBrBasisOulnInfo_process_read = os.popen("ps -ef | grep getBrBasisOulnInfo.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getBrBasisOulnInfo.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -43,6 +46,7 @@ while True:
     else:
         print("Process exists. Location is", getBrBasisOulnInfo_text_location)
 
+def getBrExposPubuseAreaInfo():
     getBrExposPubuseAreaInfo_process_read = os.popen("ps -ef | grep getBrExposPubuseAreaInfo.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getBrExposPubuseAreaInfo.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -57,6 +61,7 @@ while True:
     else:
         print("Process exists. Location is", getBrExposPubuseAreaInfo_text_location)
 
+def getBrFlrOulnInfo():
     getBrFlrOulnInfo_process_read = os.popen("ps -ef | grep getBrFlrOulnInfo.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getBrFlrOulnInfo.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -71,6 +76,7 @@ while True:
     else:
         print("Process exists. Location is", getBrFlrOulnInfo_text_location)
 
+def getBrRecapTitleInfo():
     getBrRecapTitleInfo_process_read = os.popen("ps -ef | grep getBrRecapTitleInfo.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getBrRecapTitleInfo.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -85,6 +91,7 @@ while True:
     else:
         print("Process exists. Location is", getBrRecapTitleInfo_text_location)
 
+def getBrTitleInfo():
     getBrTitleInfo_process_read = os.popen("ps -ef | grep getBrTitleInfo.py | grep -v 'grep'").readlines()
     # ps -ef 명령어를 이용해서 현재 프로세스를 출력한 후, 그 중 getBrTitleInfo.py 문자열이 포함된 줄만 모은다.
     # grep 명령어 자체도 프로세스에 나타나므로 grep -v를 이용해서 제외한다.
@@ -98,4 +105,3 @@ while True:
         # 해당 프로그램을 다시 실행한다. 백그라운드에서 실행할 경우 &기호를 붙인다.
     else:
         print("Process exists. Location is", getBrTitleInfo_text_location)
-

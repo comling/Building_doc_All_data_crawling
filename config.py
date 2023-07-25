@@ -27,6 +27,6 @@ nas_db = 'Address'
 
 ### sundakorea Server DB 정보
 host = '172.16.72.143'
-user = 'sundakorea'
+user = 'root'
 pwd = '#Jhyun08027'
 db = 'Address'
