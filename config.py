@@ -30,3 +30,7 @@ host = '172.16.72.143'
 user = 'root'
 pwd = '#Jhyun08027'
 db = 'Address'
+
+### telegram Bot
+telegram_token = '6247825923:AAHQImfXDucq_jxS_t8CtOSx6KHO4AOi_ic'
+chat_id = 6120299898

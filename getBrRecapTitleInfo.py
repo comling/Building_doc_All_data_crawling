@@ -212,7 +212,7 @@ if __name__ == '__main__':
         getBrRecapTitleInfo_data = []
         getBrRecapTitleInfo_empty = []
         
-        for process_cnt in tqdm(range(0, limit_value), total=limit_value, desc='프로세스 진행률', ncols=100, ascii=' =', leave=True):
+        for process_cnt in tqdm(range(0, limit_value), total=limit_value, desc='프로세스 진행률', leave=True):
             try:
                 getBrRecapTitleInfo(
                     getBrRecapTitleInfo_sql_df['management_key'][process_cnt],

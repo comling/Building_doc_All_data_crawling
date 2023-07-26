@@ -118,7 +118,7 @@ if __name__ == '__main__':
         getXYcoordinate_data = []
         getXYcoordinate_empty = []
 
-        for process_cnt in tqdm(range(0, limit_value), total=limit_value, desc='프로세스 진행률', ncols=100, ascii=' =', leave=True):
+        for process_cnt in tqdm(range(0, limit_value), total=limit_value, desc='프로세스 진행률', leave=True):
             try:
                 getXYcoordinate(
                     getXYcoordinate_sql_df['management_key'][process_cnt],

@@ -16,7 +16,7 @@
 * Python 3.11.2
 
 ## file manual:
-1. [crawling_All_autostart.py](crawling_All_autostart.py)
+1. [crawling_All_autostart.py](telegram_bot.py)
 * 수집 프로그램을 자동으로 실행해주는 코드
 * 종료 시 grep을 통해 프로세스를 확인하고 재실행
 2. [getXYcoordinate.py](getXYcoordinate.py)
