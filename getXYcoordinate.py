@@ -139,7 +139,6 @@ if __name__ == '__main__':
 
         for process_cnt in tqdm(range(0, limit_value), total=limit_value, desc='프로세스 진행률', leave=True):
             try:
-                process_cnt = 0
                 getXYcoordinate(
                     getXYcoordinate_sql_df['management_key'][process_cnt],
                     getXYcoordinate_sql_df['management_number'][process_cnt],
