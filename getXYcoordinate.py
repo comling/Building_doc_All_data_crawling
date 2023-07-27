@@ -31,6 +31,8 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
                     buldSlno):  # 주소좌표변환
     params = {'admCd': admCd, 'rnMgtSn': rnMgtSn, 'udrtYn': udrtYn, 'buldMnnm': buldMnnm,
               'buldSlno': buldSlno, 'confmKey': config.geocode_key}
+    params = {'admCd': '1111010100', 'rnMgtSn': '111104100458', 'udrtYn': '0', 'buldMnnm': '13',
+              'buldSlno': '0', 'confmKey': config.geocode_key}
     url = 'https://business.juso.go.kr/addrlink/addrCoordApi.do'
     res = re.get(url, params=params)
     soup = bs(res.text, features='xml')
@@ -38,6 +40,9 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
     totalCount = soup.find('totalCount').get_text()
     errorCode = soup.find('errorCode').get_text()
     errorMessage = soup.find('errorMessage').get_text()
+
+    entX = soup.find('entX').get_text()  # X좌표(UTM-K/GRS80[EPSG:5179])
+    entY = soup.find('entY').get_text()  # Y좌표(UTM-K/GRS80[EPSG:5179])
 
     if totalCount == '0':
         getXYcoordinate_empty.append({
@@ -54,7 +59,21 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
             'errorMessage': errorMessage,
             'update_month': update_month
         })
-
+    elif totalCount != '0' and entX == '':
+        getXYcoordinate_empty.append({
+            'management_key': management_key,
+            'management_number': management_number,
+            'sido_name': sido_name,
+            'full_load_address': load_address,
+            'admCd': admCd,
+            'rnMgtSn': rnMgtSn,
+            'udrtYn': udrtYn,
+            'buldMnnm': buldMnnm,
+            'buldSlno': buldSlno,
+            'errorCode': errorCode,
+            'errorMessage': '좌표정보 없음',
+            'update_month': update_month
+        })
     elif totalCount != '0' and errorCode == '0':
         bdMgtSn = soup.find('bdMgtSn').get_text()  # 건물관리번호
         entX = soup.find('entX').get_text()  # X좌표(UTM-K/GRS80[EPSG:5179])
@@ -120,6 +139,7 @@ if __name__ == '__main__':
 
         for process_cnt in tqdm(range(0, limit_value), total=limit_value, desc='프로세스 진행률', leave=True):
             try:
+                process_cnt = 0
                 getXYcoordinate(
                     getXYcoordinate_sql_df['management_key'][process_cnt],
                     getXYcoordinate_sql_df['management_number'][process_cnt],
@@ -132,6 +152,7 @@ if __name__ == '__main__':
                     getXYcoordinate_sql_df['buldSlno'][process_cnt],
                 )
             except Exception as e:
+                print(e)
                 pass
 
             time.sleep(delay)
