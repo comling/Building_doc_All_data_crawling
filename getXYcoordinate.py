@@ -31,8 +31,6 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
                     buldSlno):  # 주소좌표변환
     params = {'admCd': admCd, 'rnMgtSn': rnMgtSn, 'udrtYn': udrtYn, 'buldMnnm': buldMnnm,
               'buldSlno': buldSlno, 'confmKey': config.geocode_key}
-    params = {'admCd': '1111010100', 'rnMgtSn': '111104100458', 'udrtYn': '0', 'buldMnnm': '13',
-              'buldSlno': '0', 'confmKey': config.geocode_key}
     url = 'https://business.juso.go.kr/addrlink/addrCoordApi.do'
     res = re.get(url, params=params)
     soup = bs(res.text, features='xml')
@@ -41,10 +39,58 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
     errorCode = soup.find('errorCode').get_text()
     errorMessage = soup.find('errorMessage').get_text()
 
-    entX = soup.find('entX').get_text()  # X좌표(UTM-K/GRS80[EPSG:5179])
-    entY = soup.find('entY').get_text()  # Y좌표(UTM-K/GRS80[EPSG:5179])
+    if totalCount != '0':
+        entX = soup.find('entX').get_text()  # X좌표(UTM-K/GRS80[EPSG:5179])
+        entY = soup.find('entY').get_text()  # Y좌표(UTM-K/GRS80[EPSG:5179])
 
-    if totalCount == '0':
+        if totalCount != '0' and errorCode == '0' and entX.find('.') > 0:
+            bdMgtSn = soup.find('bdMgtSn').get_text()  # 건물관리번호
+            entX = soup.find('entX').get_text()  # X좌표(UTM-K/GRS80[EPSG:5179])
+            entY = soup.find('entY').get_text()  # Y좌표(UTM-K/GRS80[EPSG:5179])
+            bdNm = soup.find('bdNm').get_text()  # 건물명
+
+            # 좌표계 정의
+            entUTMK = Proj(init='epsg:5179')  # UTM-K(GRS80) 주소별 좌표
+            entWGS84 = Proj(init='epsg:4326')  # WGS84 경도/위도, GPS 사용 전지구 좌표
+
+            WGS84_X, WGS84_Y = transform(entUTMK, entWGS84, entX, entY)
+
+            getXYcoordinate_data.append({
+                'management_key': management_key,
+                'management_number': management_number,
+                'sido_name': sido_name,
+                'full_load_address': load_address,
+                'admCd': admCd,
+                'rnMgtSn': rnMgtSn,
+                'udrtYn': udrtYn,
+                'buldMnnm': buldMnnm,
+                'buldSlno': buldSlno,
+                'bdMgtSn': bdMgtSn,
+                'bdNm': bdNm,
+                'entX': entX,
+                'entY': entY,
+                'longitude': WGS84_X,
+                'latitude': WGS84_Y,
+                'update_month': update_month,
+            })
+
+        elif totalCount != '0' and entX.find('.') < 0: #조회된 결과에서 좌표가 없는 경우가 있고, 이를 위해 소수점 존재 유무에 따라 오류 검출
+            getXYcoordinate_empty.append({
+                'management_key': management_key,
+                'management_number': management_number,
+                'sido_name': sido_name,
+                'full_load_address': load_address,
+                'admCd': admCd,
+                'rnMgtSn': rnMgtSn,
+                'udrtYn': udrtYn,
+                'buldMnnm': buldMnnm,
+                'buldSlno': buldSlno,
+                'errorCode': errorCode,
+                'errorMessage': entX + ',' + entY,
+                'update_month': update_month
+            })
+
+    elif totalCount == '0':
         getXYcoordinate_empty.append({
             'management_key': management_key,
             'management_number': management_number,
@@ -59,7 +105,8 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
             'errorMessage': errorMessage,
             'update_month': update_month
         })
-    elif totalCount != '0' and entX == '':
+
+    else:
         getXYcoordinate_empty.append({
             'management_key': management_key,
             'management_number': management_number,
@@ -71,39 +118,10 @@ def getXYcoordinate(management_key, management_number, sido_name, load_address, 
             'buldMnnm': buldMnnm,
             'buldSlno': buldSlno,
             'errorCode': errorCode,
-            'errorMessage': '좌표정보 없음',
+            'errorMessage': errorMessage,
             'update_month': update_month
         })
-    elif totalCount != '0' and errorCode == '0':
-        bdMgtSn = soup.find('bdMgtSn').get_text()  # 건물관리번호
-        entX = soup.find('entX').get_text()  # X좌표(UTM-K/GRS80[EPSG:5179])
-        entY = soup.find('entY').get_text()  # Y좌표(UTM-K/GRS80[EPSG:5179])
-        bdNm = soup.find('bdNm').get_text()  # 건물명
 
-        # 좌표계 정의
-        entUTMK = Proj(init='epsg:5179')  # UTM-K(GRS80) 주소별 좌표
-        entWGS84 = Proj(init='epsg:4326')  # WGS84 경도/위도, GPS 사용 전지구 좌표
-
-        WGS84_X, WGS84_Y = transform(entUTMK, entWGS84, entX, entY)
-
-        getXYcoordinate_data.append({
-            'management_key': management_key,
-            'management_number': management_number,
-            'sido_name': sido_name,
-            'full_load_address': load_address,
-            'admCd': admCd,
-            'rnMgtSn': rnMgtSn,
-            'udrtYn': udrtYn,
-            'buldMnnm': buldMnnm,
-            'buldSlno': buldSlno,
-            'bdMgtSn': bdMgtSn,
-            'bdNm': bdNm,
-            'entX': entX,
-            'entY': entY,
-            'longitude': WGS84_X,
-            'latitude': WGS84_Y,
-            'update_month': update_month,
-        })
 
 if __name__ == '__main__':
 

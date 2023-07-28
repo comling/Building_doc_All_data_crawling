@@ -119,7 +119,7 @@ if __name__ == '__main__':
                              + '\n건축물대장 기본 개요: ' + str(database_count_sql_df['gbboi'][0]) + ' 누락: ' + str(database_count_sql_df['gbboie'][0])
                              + '\n건축물대장 전유공용면적: ' + str(database_count_sql_df['gbepai'][0]) + ' 누락: ' + str(database_count_sql_df['gbepaie'][0])
                              + '\n건축물대장 층별 개요: ' + str(database_count_sql_df['gbfoi'][0]) + ' 누락: ' + str(database_count_sql_df['gbfoie'][0])
-                             + '\n건축물대장 총괄표제부: ' + str(database_count_sql_df['gbrti'][0]) + ' 누락: ' + str(database_count_sql_df['gbrti'][0])
+                             + '\n건축물대장 총괄표제부: ' + str(database_count_sql_df['gbrti'][0]) + ' 누락: ' + str(database_count_sql_df['gbrtie'][0])
                              + '\n건축물대장 표제부: ' + str(database_count_sql_df['gbti'][0]) + ' 누락: ' + str(database_count_sql_df['gbtie'][0])
                              + '\n주소좌표변환: ' + str(database_count_sql_df['gx'][0]) + ' 누락: ' + str(database_count_sql_df['gxe'][0])
                              )
