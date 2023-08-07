@@ -70,6 +70,21 @@ if __name__ == '__main__':
     base_time = time.strftime('%H')
     time.sleep(60)
 
+    before_gapi    = 0
+    before_gapie   = 0
+    before_gbboi   = 0
+    before_gbboie  = 0
+    before_gbepai  = 0
+    before_gbepaie = 0
+    before_gbfoi   = 0
+    before_gbfoie  = 0
+    before_gbrti   = 0
+    before_gbrtie  = 0
+    before_gbti    = 0
+    before_gbtie   = 0
+    before_gx      = 0
+    before_gxe     = 0
+
     while True:
         compare_time = time.strftime('%H')
         if base_time != compare_time:
@@ -77,6 +92,21 @@ if __name__ == '__main__':
             engine = create_engine(f'mariadb+pymysql://{config.user}:{config.pwd}@{config.host}:3306/{config.db}', echo=False)
 
             conn = engine.connect()
+
+            before_gapi = database_count_sql_df['gapi'][0]
+            before_gapie = database_count_sql_df['gapie'][0]
+            before_gbboi = database_count_sql_df['gbboi'][0]
+            before_gbboie = database_count_sql_df['gbboie'][0]
+            before_gbepai = database_count_sql_df['gbepai'][0]
+            before_gbepaie = database_count_sql_df['gbepaie'][0]
+            before_gbfoi = database_count_sql_df['gbfoi'][0]
+            before_gbfoie = database_count_sql_df['gbfoie'][0]
+            before_gbrti = database_count_sql_df['gbrti'][0]
+            before_gbrtie = database_count_sql_df['gbrtie'][0]
+            before_gbti = database_count_sql_df['gbti'][0]
+            before_gbtie = database_count_sql_df['gbtie'][0]
+            before_gx = database_count_sql_df['gx'][0]
+            before_gxe = database_count_sql_df['gxe'][0]
 
             database_count_sql = text('''
             SELECT  base.za,
@@ -113,6 +143,36 @@ if __name__ == '__main__':
 
             database_count_sql_df = pd.read_sql_query(database_count_sql, conn)
 
+            gapi    = database_count_sql_df['gapi'][0]
+            gapie   = database_count_sql_df['gapie'][0]
+            gbboi   = database_count_sql_df['gbboi'][0]
+            gbboie  = database_count_sql_df['gbboie'][0]
+            gbepai  = database_count_sql_df['gbepai'][0]
+            gbepaie = database_count_sql_df['gbepaie'][0]
+            gbfoi   = database_count_sql_df['gbfoi'][0]
+            gbfoie  = database_count_sql_df['gbfoie'][0]
+            gbrti   = database_count_sql_df['gbrti'][0]
+            gbrtie  = database_count_sql_df['gbrtie'][0]
+            gbti    = database_count_sql_df['gbti'][0]
+            gbtie   = database_count_sql_df['gbtie'][0]
+            gx      = database_count_sql_df['gx'][0]
+            gxe     = database_count_sql_df['gxe'][0]
+
+            calculate_gapi    = database_count_sql_df['gapi'][0] - before_gapi
+            calculate_gapie   = database_count_sql_df['gapie'][0] - before_gapie
+            calculate_gbboi   = database_count_sql_df['gbboi'][0] - before_gbboi
+            calculate_gbboie  = database_count_sql_df['gbboie'][0] - before_gbboie
+            calculate_gbepai  = database_count_sql_df['gbepai'][0] - before_gbepai
+            calculate_gbepaie = database_count_sql_df['gbepaie'][0] - before_gbepaie
+            calculate_gbfoi   = database_count_sql_df['gbfoi'][0] - before_gbfoi
+            calculate_gbfoie  = database_count_sql_df['gbfoie'][0] - before_gbfoie
+            calculate_gbrti   = database_count_sql_df['gbrti'][0] - before_gbrti
+            calculate_gbrtie  = database_count_sql_df['gbrtie'][0] - before_gbrtie
+            calculate_gbti    = database_count_sql_df['gbti'][0] - before_gbti
+            calculate_gbtie   = database_count_sql_df['gbtie'][0] - before_gbtie
+            calculate_gx      = database_count_sql_df['gx'][0] - before_gx
+            calculate_gxe     = database_count_sql_df['gxe'][0] - before_gxe
+
             tel_send_message('현재시간: ' + time.strftime('%y년 %m월 %d일 %H시 %M분')
                              + '\n전체 데이터: ' + str(database_count_sql_df['za'][0])
                              + '\n건축물대장소유자정보: ' + str(database_count_sql_df['gapi'][0]) + ' 누락: ' + str(database_count_sql_df['gapie'][0])
@@ -122,4 +182,12 @@ if __name__ == '__main__':
                              + '\n건축물대장 총괄표제부: ' + str(database_count_sql_df['gbrti'][0]) + ' 누락: ' + str(database_count_sql_df['gbrtie'][0])
                              + '\n건축물대장 표제부: ' + str(database_count_sql_df['gbti'][0]) + ' 누락: ' + str(database_count_sql_df['gbtie'][0])
                              + '\n주소좌표변환: ' + str(database_count_sql_df['gx'][0]) + ' 누락: ' + str(database_count_sql_df['gxe'][0])
+                             + '\n\n이전데이터 비교 정보'
+                             + '\n건축물대장소유자정보: ' + str(calculate_gapi) + ' 누락: ' + str(calculate_gapie)
+                             + '\n건축물대장 기본 개요: ' + str(calculate_gbboi) + ' 누락: ' + str(calculate_gbboie)
+                             + '\n건축물대장 전유공용면적: ' + str(calculate_gbepai) + ' 누락: ' + str(calculate_gbepaie)
+                             + '\n건축물대장 층별 개요: ' + str(calculate_gbfoi) + ' 누락: ' + str(calculate_gbfoie)
+                             + '\n건축물대장 총괄표제부: ' + str(calculate_gbrti) + ' 누락: ' + str(calculate_gbrtie)
+                             + '\n건축물대장 표제부: ' + str(calculate_gbti) + ' 누락: ' + str(calculate_gbtie)
+                             + '\n주소좌표변환: ' + str(calculate_gx) + ' 누락: ' + str(calculate_gxe)
                              )
