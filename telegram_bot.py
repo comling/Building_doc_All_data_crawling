@@ -158,20 +158,20 @@ if __name__ == '__main__':
             gx      = database_count_sql_df['gx'][0]
             gxe     = database_count_sql_df['gxe'][0]
 
-            calculate_gapi    = database_count_sql_df['gapi'][0] - before_gapi
-            calculate_gapie   = database_count_sql_df['gapie'][0] - before_gapie
-            calculate_gbboi   = database_count_sql_df['gbboi'][0] - before_gbboi
-            calculate_gbboie  = database_count_sql_df['gbboie'][0] - before_gbboie
-            calculate_gbepai  = database_count_sql_df['gbepai'][0] - before_gbepai
-            calculate_gbepaie = database_count_sql_df['gbepaie'][0] - before_gbepaie
-            calculate_gbfoi   = database_count_sql_df['gbfoi'][0] - before_gbfoi
-            calculate_gbfoie  = database_count_sql_df['gbfoie'][0] - before_gbfoie
-            calculate_gbrti   = database_count_sql_df['gbrti'][0] - before_gbrti
-            calculate_gbrtie  = database_count_sql_df['gbrtie'][0] - before_gbrtie
-            calculate_gbti    = database_count_sql_df['gbti'][0] - before_gbti
-            calculate_gbtie   = database_count_sql_df['gbtie'][0] - before_gbtie
-            calculate_gx      = database_count_sql_df['gx'][0] - before_gx
-            calculate_gxe     = database_count_sql_df['gxe'][0] - before_gxe
+            calculate_gapi    = gapi - before_gapi
+            calculate_gapie   = gapie - before_gapie
+            calculate_gbboi   = gbboi - before_gbboi
+            calculate_gbboie  = gbboie - before_gbboie
+            calculate_gbepai  = gbepai - before_gbepai
+            calculate_gbepaie = gbepaie - before_gbepaie
+            calculate_gbfoi   = gbfoi - before_gbfoi
+            calculate_gbfoie  = gbfoie - before_gbfoie
+            calculate_gbrti   = gbrti - before_gbrti
+            calculate_gbrtie  = gbrtie - before_gbrtie
+            calculate_gbti    = gbti - before_gbti
+            calculate_gbtie   = gbtie - before_gbtie
+            calculate_gx      = gx - before_gx
+            calculate_gxe     = gxe - before_gxe
 
             tel_send_message('현재시간: ' + time.strftime('%y년 %m월 %d일 %H시 %M분')
                              + '\n전체 데이터: ' + str(database_count_sql_df['za'][0])
