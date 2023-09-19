@@ -150,6 +150,7 @@ def getArchitecturePossessionInfo(management_key, management_number, sigungu_cd,
             'update_month': update_month,
         })
 
+
 if __name__ == '__main__':
     engine = create_engine(f'mariadb+pymysql://{config.user}:{config.pwd}@{config.host}:3306/{config.db}', echo=False)
 

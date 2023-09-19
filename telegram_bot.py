@@ -93,21 +93,6 @@ if __name__ == '__main__':
 
             conn = engine.connect()
 
-            before_gapi = database_count_sql_df['gapi'][0]
-            before_gapie = database_count_sql_df['gapie'][0]
-            before_gbboi = database_count_sql_df['gbboi'][0]
-            before_gbboie = database_count_sql_df['gbboie'][0]
-            before_gbepai = database_count_sql_df['gbepai'][0]
-            before_gbepaie = database_count_sql_df['gbepaie'][0]
-            before_gbfoi = database_count_sql_df['gbfoi'][0]
-            before_gbfoie = database_count_sql_df['gbfoie'][0]
-            before_gbrti = database_count_sql_df['gbrti'][0]
-            before_gbrtie = database_count_sql_df['gbrtie'][0]
-            before_gbti = database_count_sql_df['gbti'][0]
-            before_gbtie = database_count_sql_df['gbtie'][0]
-            before_gx = database_count_sql_df['gx'][0]
-            before_gxe = database_count_sql_df['gxe'][0]
-
             database_count_sql = text('''
             SELECT  base.za,
                     A.gapi,
@@ -191,3 +176,20 @@ if __name__ == '__main__':
                              + '\n건축물대장 표제부: ' + str(calculate_gbti) + ' 누락: ' + str(calculate_gbtie)
                              + '\n주소좌표변환: ' + str(calculate_gx) + ' 누락: ' + str(calculate_gxe)
                              )
+
+            before_gapi = database_count_sql_df['gapi'][0]
+            before_gapie = database_count_sql_df['gapie'][0]
+            before_gbboi = database_count_sql_df['gbboi'][0]
+            before_gbboie = database_count_sql_df['gbboie'][0]
+            before_gbepai = database_count_sql_df['gbepai'][0]
+            before_gbepaie = database_count_sql_df['gbepaie'][0]
+            before_gbfoi = database_count_sql_df['gbfoi'][0]
+            before_gbfoie = database_count_sql_df['gbfoie'][0]
+            before_gbrti = database_count_sql_df['gbrti'][0]
+            before_gbrtie = database_count_sql_df['gbrtie'][0]
+            before_gbti = database_count_sql_df['gbti'][0]
+            before_gbtie = database_count_sql_df['gbtie'][0]
+            before_gx = database_count_sql_df['gx'][0]
+            before_gxe = database_count_sql_df['gxe'][0]
+
+
